@@ -27,7 +27,7 @@
           "resolutionStrategy": "and"
         },
         {
-          "provider": "ketch",
+          "provider": "ketch-up",
           "resolutionStrategy": "or"
         }
       ]

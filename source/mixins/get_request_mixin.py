@@ -9,7 +9,7 @@ class GetRequestMixin(BaseHTTPRequestHandler):
         parsed_url = urlparse(self.path)
         parsed_path = parsed_url.path
         if parsed_path == "/sourceConfig":
-            response_data = self.read_json_file('sample_config.json')
+            response_data = self.read_json_file('json_files/sample_config.json')
             self.send_success(json.dumps(response_data))
         else:
             self.send_error(404, 'Configuration file not found.\n')

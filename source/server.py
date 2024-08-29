@@ -3,8 +3,8 @@ from urllib.parse import urlparse, parse_qs
 import json
 import os
 
-from get_request_mixin import GetRequestMixin
-from post_request_mixin import PostRequestMixin
+from mixins.get_request_mixin import GetRequestMixin
+from mixins.post_request_mixin import PostRequestMixin
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
 
