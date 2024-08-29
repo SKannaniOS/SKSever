@@ -1,0 +1,35 @@
+{
+    "source": {
+      "id": "2h8iajtQs3PmcBZKzeDR5rY4tDL",
+      "name": "iOS Test",
+      "writeKey": "2h8ianoGGYaFRmDZ9s4Zx0n1GgD",
+      "config": {
+        "statsCollection": {
+          "errors": {
+            "enabled": true
+          },
+          "metrics": {
+            "enabled": true
+          }
+        }
+      },
+      "enabled": true,
+      "workspaceId": "2h8hLQOPxmXc4kdECTy9fxt3ow4",
+      "destinations": [],
+      "updatedAt": "2024-08-29T09:06:44.618Z",
+      "dataplanes": {}
+    },
+    "updatedAt": "2024-08-29T18:01:46.504Z",
+    "consentManagementMetadata": {
+      "providers": [
+        {
+          "provider": "oneTrust",
+          "resolutionStrategy": "and"
+        },
+        {
+          "provider": "ketch",
+          "resolutionStrategy": "or"
+        }
+      ]
+    }
+  }

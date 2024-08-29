@@ -1,0 +1,72 @@
+{
+    "anonymousId": "42f43343-d49c-4ed3-8bb4-13f30541398d",
+    "channel": "mobile",
+    "context": {
+        "app": {
+            "build": "1",
+            "name": "RudderSampleAppSwift",
+            "namespace": "com.rudderstack.ios.swift",
+            "version": "1.0"
+        },
+        "device": {
+            "attTrackingStatus": 0,
+            "id": "b45877f5-118e-436b-a04b-903dc6eed072",
+            "manufacturer": "Apple",
+            "model": "arm64",
+            "name": "iPhone 15 Pro",
+            "type": "iOS"
+        },
+        "library": {
+            "name": "rudder-ios-library",
+            "version": "1.27.0"
+        },
+        "locale": "en-IN",
+        "network": {
+            "cellular": false,
+            "wifi": true
+        },
+        "os": {
+            "name": "iOS",
+            "version": "17.5"
+        },
+        "screen": {
+            "density": 3,
+            "height": 852,
+            "width": 393
+        },
+        "timezone": "Asia/Kolkata",
+        "traits": {
+            "anonymousId": "42f43343-d49c-4ed3-8bb4-13f30541398d",
+            "arrayValue": [
+                1,
+                2,
+                3,
+                4,
+                5
+            ],
+            "boolValue": true,
+            "dateValue": "2024-07-26T05:13:41.041Z",
+            "dictionaryValue": {
+                "key1": "value1",
+                "key2": "value2"
+            },
+            "doubleValue": 3.14159,
+            "integerValue": 42,
+            "stringValue": "Hello, World!",
+            "urlValue": "https://www.example.com",
+            "userId": "test_user_id"
+        }
+    },
+    "event": "identify",
+    "integrations": {
+        "All": true
+    },
+    "messageId": "54317e8d-7c60-488b-b64c-5a6816cca1cf",
+    "originalTimestamp": "2024-07-26T05:13:41.041Z",
+    "receivedAt": "2024-07-26T05:13:42.847Z",
+    "request_ip": "103.163.248.241",
+    "rudderId": "12f6c4b8-9f76-4f25-a3b5-c92a5c545d7c",
+    "sentAt": "2024-07-26T05:13:41.682Z",
+    "type": "identify",
+    "userId": "test_user_id"
+}
