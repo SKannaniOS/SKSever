@@ -35,7 +35,7 @@ if __name__ == '__main__':
 # to start the server, run the following command:
 # python3 server.py
 
-# To start tunneling, run the following command:
+# To start tunneling, run the following command in seprate terminal:
 # ssh -p 443 -R0:localhost:12791 a.pinggy.io
 # ------------------------ or -------------------------------- #
 # ssh -R 80:localhost:12791 serveo.net
