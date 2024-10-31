@@ -30,7 +30,7 @@ class PostRequestMixin(BaseHTTPRequestHandler):
         batch_content = ""
         if batch:
             for event in batch:
-                event_name = event.get('event')
+                event_name = event.get('event') or event.get('type')
                 if event_name:
                     batch_content += event_name
                     batch_content += '\n'
