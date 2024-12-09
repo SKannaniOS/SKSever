@@ -1,6 +1,8 @@
 import json
 import os
 import time
+import random
+
 from http.server import BaseHTTPRequestHandler
 
 class PostRequestMixin(BaseHTTPRequestHandler):
@@ -50,7 +52,9 @@ class PostRequestMixin(BaseHTTPRequestHandler):
         with open(file_path, 'a') as f:
             f.write(content + '\n')
         
+        # random_value = random.randint(1, 5)
         time.sleep(0)
+        
         self.send_success('Received data successfully\n')
 
     # Check if file exists
