@@ -53,7 +53,7 @@ class PostRequestMixin(BaseHTTPRequestHandler):
             f.write(content + '\n')
         
         # random_value = random.randint(1, 5)
-        time.sleep(0)
+        # time.sleep(0)
         
         self.send_success('Received data successfully\n')
 

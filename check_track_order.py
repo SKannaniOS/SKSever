@@ -14,15 +14,74 @@ Or make it executable and run:
 import os
 import re
 
+def _get_batch_file_path():
+    """Get the path to batch_content.txt file."""
+    current_dir = os.path.dirname(os.path.realpath(__file__))
+    batch_file_path = os.path.join(current_dir, 'output_files/batch_content.txt')
+    return os.path.abspath(batch_file_path)
+
+def _extract_track_numbers(content):
+    """Extract track numbers from file content."""
+    track_pattern = r'Track:\s*(\d+)'
+    matches = re.findall(track_pattern, content)
+    return [int(match) for match in matches] if matches else []
+
+def _find_order_inconsistencies(track_numbers):
+    """Find places where tracks are not in ascending order."""
+    inconsistencies = []
+    for i in range(1, len(track_numbers)):
+        current_track = track_numbers[i]
+        previous_track = track_numbers[i-1]
+        
+        if current_track <= previous_track:
+            inconsistencies.append({
+                'position': i + 1,
+                'previous_track': previous_track,
+                'current_track': current_track,
+                'line_number': i + 2
+            })
+    return inconsistencies
+
+def _print_inconsistencies(inconsistencies):
+    """Print found inconsistencies."""
+    print(f"\n❌ INCONSISTENCIES FOUND: {len(inconsistencies)} places where tracks are not in ascending order:")
+    print("-" * 70)
+    
+    for issue in inconsistencies:
+        print(f"Position {issue['position']}: Track {issue['current_track']} comes after Track {issue['previous_track']}")
+        print(f"  Expected: Track {issue['previous_track']} < Track {issue['current_track']}")
+        print(f"  Approximate line: {issue['line_number']}")
+        print()
+
+def _find_duplicate_tracks(track_numbers):
+    """Find duplicate track numbers."""
+    duplicate_tracks = []
+    seen = set()
+    for track in track_numbers:
+        if track in seen and track not in duplicate_tracks:
+            duplicate_tracks.append(track)
+        seen.add(track)
+    return duplicate_tracks
+
+def _print_statistics(track_numbers):
+    """Print additional statistics about tracks."""
+    expected_sequence = set(range(1, len(track_numbers) + 1))
+    track_set = set(track_numbers)
+    missing_tracks = expected_sequence - track_set
+    duplicate_tracks = _find_duplicate_tracks(track_numbers)
+    
+    if missing_tracks:
+        print(f"⚠️  Missing tracks (if expecting 1 to {len(track_numbers)}): {sorted(missing_tracks)}")
+    
+    if duplicate_tracks:
+        print(f"⚠️  Duplicate tracks found: {duplicate_tracks}")
+
 def check_track_order():
     """
     Function to check if track numbers in batch_content.txt are in ascending order.
     Prints any inconsistencies found where tracks are not in ascending order.
     """
-    # Get the path to batch_content.txt
-    current_dir = os.path.dirname(os.path.realpath(__file__))
-    batch_file_path = os.path.join(current_dir, 'output_files/batch_content.txt')
-    batch_file_path = os.path.abspath(batch_file_path)
+    batch_file_path = _get_batch_file_path()
     
     if not os.path.exists(batch_file_path):
         print(f"Error: File not found - {batch_file_path}")
@@ -32,64 +91,23 @@ def check_track_order():
         with open(batch_file_path, 'r') as f:
             content = f.read()
         
-        # Extract track numbers using regex
-        track_pattern = r'Track:\s*(\d+)'
-        matches = re.findall(track_pattern, content)
+        track_numbers = _extract_track_numbers(content)
         
-        if not matches:
+        if not track_numbers:
             print("No track numbers found in the file.")
             return
-        
-        # Convert to integers
-        track_numbers = [int(match) for match in matches]
         
         print(f"Found {len(track_numbers)} track entries.")
         print(f"Track numbers: {track_numbers}")
         
-        # Check for ascending order
-        inconsistencies = []
-        
-        for i in range(1, len(track_numbers)):
-            current_track = track_numbers[i]
-            previous_track = track_numbers[i-1]
-            
-            if current_track <= previous_track:
-                inconsistencies.append({
-                    'position': i + 1,  # 1-based position
-                    'previous_track': previous_track,
-                    'current_track': current_track,
-                    'line_number': i + 2  # Approximate line number (considering header)
-                })
+        inconsistencies = _find_order_inconsistencies(track_numbers)
         
         if inconsistencies:
-            print(f"\n❌ INCONSISTENCIES FOUND: {len(inconsistencies)} places where tracks are not in ascending order:")
-            print("-" * 70)
-            
-            for issue in inconsistencies:
-                print(f"Position {issue['position']}: Track {issue['current_track']} comes after Track {issue['previous_track']}")
-                print(f"  Expected: Track {issue['previous_track']} < Track {issue['current_track']}")
-                print(f"  Approximate line: {issue['line_number']}")
-                print()
+            _print_inconsistencies(inconsistencies)
         else:
             print("\n✅ All tracks are in ascending order!")
             
-        # Additional statistics
-        expected_sequence = list(range(1, len(track_numbers) + 1))
-        missing_tracks = set(expected_sequence) - set(track_numbers)
-        duplicate_tracks = []
-        
-        # Check for duplicates
-        seen = set()
-        for track in track_numbers:
-            if track in seen and track not in duplicate_tracks:
-                duplicate_tracks.append(track)
-            seen.add(track)
-        
-        if missing_tracks:
-            print(f"⚠️  Missing tracks (if expecting 1 to {len(track_numbers)}): {sorted(missing_tracks)}")
-        
-        if duplicate_tracks:
-            print(f"⚠️  Duplicate tracks found: {duplicate_tracks}")
+        _print_statistics(track_numbers)
             
     except Exception as e:
         print(f"Error reading file: {e}")
