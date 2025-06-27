@@ -33,8 +33,11 @@ if __name__ == '__main__':
 
 # ------------------------------------------------------------ #
 # to start the server, run the following command:
-# python3 server.py
-
+# python3 source/server.py
+# ------------------------ or -------------------------------- #
+# to run with nodemon for auto-reloading on changes:
+# nodemon --exec python3 source/server.py --ext py
+# ------------------------------------------------------------ #
 # To start tunneling, run the following command in seprate terminal:
 # ssh -p 443 -R0:localhost:12791 a.pinggy.io
 # ------------------------ or -------------------------------- #

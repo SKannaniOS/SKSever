@@ -50,7 +50,7 @@ class PostRequestMixin(BaseHTTPRequestHandler):
             return            
 
         with open(file_path, 'a') as f:
-            f.write(content + '\n')
+            f.write(content)
         
         # random_value = random.randint(1, 5)
         # time.sleep(0)
