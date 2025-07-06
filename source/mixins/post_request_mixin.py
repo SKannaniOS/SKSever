@@ -2,16 +2,39 @@ import json
 import os
 import time
 import random
+import gzip
+import io
 
 from http.server import BaseHTTPRequestHandler
 
 class PostRequestMixin(BaseHTTPRequestHandler):
+    # Configuration flag to enable/disable gzip decompression
+    GZIP_ENABLED = True  # Set to False to disable gzip processing
+    
     # Handle POST request
     def handle_post_request(self):
         # Read POST data
         if self.path == '/submit/v1/batch':
             content_length = int(self.headers['Content-Length'])
             post_data = self.rfile.read(content_length)
+            
+            # Check if request is gzip compressed
+            content_encoding = self.headers.get('Content-Encoding', '').lower()
+            
+            # Decompress gzip data if enabled and content is compressed
+            if self.GZIP_ENABLED and content_encoding == 'gzip':
+                try:
+                    # Decompress gzip data
+                    post_data = gzip.decompress(post_data)
+                    print("✅ Gzip decompression successful")
+                except Exception as e:
+                    print(f"❌ Gzip decompression failed: {e}")
+                    self.send_error(400, 'Error decompressing gzip data\n')
+                    return
+            elif content_encoding == 'gzip' and not self.GZIP_ENABLED:
+                print("⚠️ Gzip compressed request received but gzip processing is disabled")
+                self.send_error(400, 'Gzip processing is disabled\n')
+                return
         
             # Handle JSON data
             try:
