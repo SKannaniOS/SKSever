@@ -114,3 +114,8 @@ def check_track_order():
 
 if __name__ == '__main__':
     check_track_order()
+
+# ------------------------------------------------------------ #
+# To run this script, use the following command:
+# python3 check_track_order.py
+# ------------------------------------------------------------ #
