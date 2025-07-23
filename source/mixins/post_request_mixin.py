@@ -14,7 +14,7 @@ class PostRequestMixin(BaseHTTPRequestHandler):
     # Handle POST request
     def handle_post_request(self):
         # Read POST data
-        if self.path == '/submit/v1/batch':
+        if self.path == '/v1/batch':
             content_length = int(self.headers['Content-Length'])
             post_data = self.rfile.read(content_length)
             

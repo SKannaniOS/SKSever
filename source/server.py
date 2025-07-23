@@ -11,8 +11,7 @@ script_dir = os.path.dirname(os.path.realpath(__file__))
 # HTTPRequestHandler class
 class RequestHandler(PostRequestMixin, GetRequestMixin, BaseHTTPRequestHandler):
     def do_POST(self):
-        cleaned_path = self.path.replace('/v1/batch', '')
-        if cleaned_path == '/submit':
+        if self.path == '/v1/batch':
             self.handle_post_request()
         else:
             self.send_error(404, 'Not Found\n')
