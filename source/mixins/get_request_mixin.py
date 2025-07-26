@@ -11,6 +11,9 @@ class GetRequestMixin(BaseHTTPRequestHandler):
         if parsed_path == "/sourceConfig":
             response_data = self.read_json_file('json_files/sample_config.json')
             self.send_success(json.dumps(response_data))
+        elif parsed_path == "/denylist":
+            response_data = self.read_file('sample_files/denylist.js')
+            self.send_success(response_data)
         else:
             self.send_error(404, 'Configuration file not found.\n')
             self.end_headers()
@@ -18,6 +21,10 @@ class GetRequestMixin(BaseHTTPRequestHandler):
     def read_json_file(self, filepath):
         with open(filepath, 'r') as file:
             return json.load(file)
+
+    def read_file(self, filepath):
+        with open(filepath, 'r') as file:
+            return file.read()
 
     def send_success(self, message):
         self.send_response(200)
