@@ -10,11 +10,11 @@
 
 function transformEvent(event, metadata) {
     const property = event.event; // Edit property
-    const denylist = ["Product Added", "Order Completed"]; // Edit denylist contents
-    const denyPattern = "Single"; // Block any event starting with "Single"
+    const eventlist = ["Product Added", "Order Completed"]; // Edit denylist contents
+    const eventPattern = "Single"; // Block any event starting with "Single"
 
-    // Block if exact match in denylist OR starts with "Single"
-    if (property && (denylist.includes(property) || property.startsWith(denyPattern))) {
+    // Block if exact match in eventlist OR starts with "Single"
+    if (property && (eventlist.includes(property) || property.startsWith(eventPattern))) {
         event.event = "SK~" + property; // Prefix the event with "SK~" to indicate it's a custom event
     }
     return event;
